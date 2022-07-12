@@ -19,18 +19,45 @@ class Board
     end
     
     def valid_placement?(ship, coordinates)
-        all_coordinates_valid = coordinates.all? do |coordinate|
-            valid_coordinate?(coordinate) 
-        end
-        
-        matching_lengths = ship.length == coordinates.length
-        
-        if all_coordinates_valid && matching_lengths
-            true
+                
+        if all_coordinates_valid?(coordinates) && ship.length == coordinates.length
+            
+            if all_same_row?(coordinates) && consecutive_columns?(coordinates)
+                true
+            elsif all_same_column?(coordinates) && consecutive_rows?(coordinates)
+                true
+            else
+                false
+            end
+
         else
             false
         end
-        # @ship.length = valid_coordinate?
 
     end
+
+    def all_coordinates_valid?(coordinates)
+        coordinates.all? do |coordinate|
+            valid_coordinate?(coordinate) 
+        end
+    end
+
+    def all_same_row?(coordinates)
+        rows = coordinates.map{ |coordinate| coordinate.split(//).first }
+        
+        rows.all?{ |row| row == row.first }
+    end
+
+    def all_same_column?(coordinates)
+
+    end
+
+    def consecutive_columns?(coordinates)
+
+    end
+
+    def consecutive_rows?(coordinates)
+
+    end
+
 end
