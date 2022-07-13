@@ -44,13 +44,11 @@ class Board
 
     def all_same_row?(coordinates)
         rows = coordinates.map{ |coordinate| coordinate.split(//).first }
-        
         rows.all?{ |row| row == rows.first }
     end
 
     def all_same_column?(coordinates)
         columns = coordinates.map{ |coordinate| coordinate.split(//).last }
-
         columns.all?{ |column| column == columns.last }
     end
 
@@ -65,10 +63,21 @@ class Board
                 is_consecutive = true
             end
         end
+        
         is_consecutive
     end
 
     def consecutive_rows?(coordinates)
+        rows = coordinates.map{ |coordinate| coordinate.split(//).first }
+
+        is_consecutive = false
+
+        ("A".."D").each_cons(coordinates.length) do |expected|
+            if rows == expected
+                is_consecutive = true
+            end
+        end
+        is_consecutive
 
     end
 
