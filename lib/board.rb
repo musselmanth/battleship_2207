@@ -22,9 +22,9 @@ class Board
                 
         if all_coordinates_valid?(coordinates) && ship.length == coordinates.length
             
-            if all_same_row?(coordinates) && consecutive_columns?(coordinates)
+            if all_same_row?(coordinates) && consecutive_columns?(coordinates) && all_empty?(coordinates)
                 true
-            elsif all_same_column?(coordinates) && consecutive_rows?(coordinates)
+            elsif all_same_column?(coordinates) && consecutive_rows?(coordinates) && all_empty?(coordinates)
                 true
             else
                 false
@@ -35,6 +35,15 @@ class Board
         end
 
     end
+ 
+    def all_empty?(coordinates)
+        coordinates.all? do |coordinate|
+            @cells[coordinate].empty?
+        end  
+        # cells.cruiser != cells.submarine
+        
+    end
+    
 
     def all_coordinates_valid?(coordinates)
         coordinates.all? do |coordinate|
