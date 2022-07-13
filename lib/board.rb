@@ -45,15 +45,27 @@ class Board
     def all_same_row?(coordinates)
         rows = coordinates.map{ |coordinate| coordinate.split(//).first }
         
-        rows.all?{ |row| row == row.first }
+        rows.all?{ |row| row == rows.first }
     end
 
     def all_same_column?(coordinates)
+        columns = coordinates.map{ |coordinate| coordinate.split(//).last }
 
+        columns.all?{ |column| column == columns.last }
     end
 
     def consecutive_columns?(coordinates)
+        columns = coordinates.map{ |coordinate| coordinate.split(//).last}
 
+        is_consecutive = false
+    
+        ("1".."4").each_cons(coordinates.length) do |expected|
+        
+            if columns == expected
+                is_consecutive = true
+            end
+        end
+        is_consecutive
     end
 
     def consecutive_rows?(coordinates)
