@@ -18,37 +18,32 @@ class Board
         @cells.key?(coordinate)        
     end
     
-    def valid_placement?(ship, coordinates)
-                
-        if all_coordinates_valid?(coordinates) && ship.length == coordinates.length
-            
-            if all_same_row?(coordinates) && consecutive_columns?(coordinates) && all_empty?(coordinates)
+    def valid_placement?(ship, coordinates)       
+        if all_coordinates_valid?(ship, coordinates)
+            if all_same_row?(coordinates) && consecutive_columns?(coordinates) 
                 true
-            elsif all_same_column?(coordinates) && consecutive_rows?(coordinates) && all_empty?(coordinates)
+            elsif all_same_column?(coordinates) && consecutive_rows?(coordinates)
                 true
             else
                 false
             end
-
         else
             false
         end
-
     end
- 
-    def all_empty?(coordinates)
-        coordinates.all? do |coordinate|
-            @cells[coordinate].empty?
-        end  
-        # cells.cruiser != cells.submarine
-        
-    end
-    
-
-    def all_coordinates_valid?(coordinates)
-        coordinates.all? do |coordinate|
+  
+    def all_coordinates_valid?(ship, coordinates)
+        coordinates_exist = coordinates.all? do |coordinate|
             valid_coordinate?(coordinate) 
         end
+
+        coordinates_empty = coordinates.all? do |coordinate|
+            @cells[coordinate].empty?
+        end
+
+        correct_coordinate_length = ship.length == coordinates.length
+
+        coordinates_exist && coordinates_empty && correct_coordinate_length
     end
 
     def all_same_row?(coordinates)
