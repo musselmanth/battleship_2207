@@ -78,4 +78,13 @@ class Board
         end
     end
 
+    def render(render_hidden_ship = false)
+        render_string = "  1 2 3 4 \n"
+        render_string += "A #{@cells["A1"].render(render_hidden_ship)} #{@cells["A2"].render(render_hidden_ship)} #{@cells["A3"].render(render_hidden_ship)} #{@cells["A4"].render(render_hidden_ship)} \n"
+        render_string += "B #{@cells["B1"].render(render_hidden_ship)} #{@cells["B2"].render(render_hidden_ship)} #{@cells["B3"].render(render_hidden_ship)} #{@cells["B4"].render(render_hidden_ship)} \n"
+        render_string += "C #{@cells["C1"].render(render_hidden_ship)} #{@cells["C2"].render(render_hidden_ship)} #{@cells["C3"].render(render_hidden_ship)} #{@cells["C4"].render(render_hidden_ship)} \n"
+        render_string += "D #{@cells["D1"].render(render_hidden_ship)} #{@cells["D2"].render(render_hidden_ship)} #{@cells["D3"].render(render_hidden_ship)} #{@cells["D4"].render(render_hidden_ship)} \n"
+        render_string
+    end
+
 end
