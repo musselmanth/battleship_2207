@@ -60,7 +60,6 @@ RSpec.describe Board do
         board = Board.new
         cruiser = Ship.new("Cruiser", 3)
         submarine = Ship.new("Submarine", 2)
-
         board.place(cruiser, ["A1", "A2", "A3"])
 
         cell_1 = board.cells["A1"]
