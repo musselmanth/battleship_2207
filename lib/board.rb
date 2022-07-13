@@ -55,30 +55,17 @@ class Board
     def consecutive_columns?(coordinates)
         columns = coordinates.map{ |coordinate| coordinate.split(//).last}
 
-        is_consecutive = false
-    
-        ("1".."4").each_cons(coordinates.length) do |expected|
-        
-            if columns == expected
-                is_consecutive = true
-            end
+        ("1".."4").each_cons(coordinates.length).any? do |expected|
+            columns == expected
         end
-        
-        is_consecutive
     end
 
     def consecutive_rows?(coordinates)
         rows = coordinates.map{ |coordinate| coordinate.split(//).first }
 
-        is_consecutive = false
-
-        ("A".."D").each_cons(coordinates.length) do |expected|
-            if rows == expected
-                is_consecutive = true
-            end
+        ("A".."D").each_cons(coordinates.length).any? do |expected|
+            rows == expected
         end
-        is_consecutive
-
     end
 
 end
