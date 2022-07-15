@@ -1,4 +1,6 @@
 require './lib/board'
+require './lib/player'
+require './lib/computer'
 
 class GameRound
 
@@ -36,16 +38,16 @@ class GameRound
   end
 
   def place_ships
-    computer.place_ships
-    player.place_ships
+    @computer.place_ships
+    @player.place_ships
     take_turn
   end
 
   def take_turn
     puts "================COMPUTER BOARD================"
-    @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
+    puts @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
     puts "=================PLAYER BOARD=================" #refactor to include @player.name?
-    @player.board.render(true)
+    puts @player.board.render(true)
     # @player.fire
     # @computer.fire
     if game_round_over?

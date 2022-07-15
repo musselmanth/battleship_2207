@@ -5,34 +5,54 @@ class Player
 
     attr_reader :board
 
-    def initialize(name)
+    def initialize(name, computer)
         @name = name
-        # @computer = computer
+        @computer = computer
         @board = Board.new
-        @ships = []
+        @ships = {}
         generate_ships
     end
 
     def generate_ships
         cruiser = Ship.new("cruiser", 3)
-        @ships << cruiser
+        @ships[cruiser.name.to_sym] = cruiser
         submarine = Ship.new("submarine", 2)
-        @ships << submarine
+        @ships[submarine.name.to_sym] = submarine
     end
 
     def place_ships
-        puts "Select your placement for your cruiser (3 cells)"
-        puts "Selection: "
-        selection = gets.chomp
-        coordinates = selection.split(/ /)
+        @ships.each do |key, ship|
+            puts "Select your placement for your #{ship.name} (3 cells)"    
+            print "Selection: "
+            selection = gets.chomp.upcase
+            coordinates = selection.split(/ /)
+            coordinates.sort!
+            until @board.valid_placement?(@ships[key], coordinates)
+                puts "Invalid coordinates. Please enter your coordinates." 
+                print "Selection: "
+                selection = gets.chomp.upcase
+                coordinates = selection.split(/ /)
+                coordinates.sort! 
+            end 
+            @board.place(@ships[key], coordinates)
+        end
 
-        @board.place(@ships[0], coordinates)
         
-        puts "Select your placement for your submarine (2 cells)"
-        puts "Selection: "
-        selection = gets.chomp
-        coordinates = selection.split(/ /)
-        @board.place(@ships[1], coordinates)
+
+        
+        # puts "Select your placement for your submarine (2 cells)"
+        # print "Selection: "
+        # selection = gets.chomp.upcase
+        # coordinates = selection.split(/ /)
+        # coordinates.sort!
+        # until @board.valid_placement?(@ships[:submarine], coordinates)
+        #     puts "Invalid coordinates. Please enter your coordinates." 
+        #     print "Selection: "
+        #     selection = gets.chomp.upcase
+        #     coordinates = selection.split(/ /)
+        #     coordinates.sort! 
+        # end 
+        # @board.place(@ships[:submarine], coordinates)
     end
 
     # def fire
