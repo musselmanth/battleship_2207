@@ -44,7 +44,7 @@ class GameRound
   def take_turn
     puts "================COMPUTER BOARD================"
     # @computer.board.render
-    puts "=================PLAYER BOARD================="
+    puts "=================PLAYER BOARD=================" #refactor to include @player.name?
     # @player.board.render(true)
     # @player.fire
     # @computer.fire
@@ -66,6 +66,7 @@ class GameRound
     else
       puts "I won!"
     end
+    puts "Thanks for playing #{@player.name}"
     puts ""
     start
   end
