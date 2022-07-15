@@ -80,6 +80,7 @@ class Board
 
     def render(render_hidden_ship = false)
         render_string = "  1 2 3 4 \n"
+
         ("A".."D").each do |row|
             render_string += "#{row} "
             ("1".."4").each do |column|
@@ -89,4 +90,7 @@ class Board
         end
         render_string  
     end
+
+
+
 end
