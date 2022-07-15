@@ -3,7 +3,7 @@ require './lib/ship'
 
 class Board
 
-    attr_reader :cells, :row, :column
+    attr_reader :cells
 
     def initialize
         @cells = {}
