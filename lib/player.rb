@@ -53,6 +53,3 @@ class Player
     # end
 
 end
-player = Player.new("Rob")
-player.place_ships
-puts player.board.render(true)
