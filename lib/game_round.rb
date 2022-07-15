@@ -66,7 +66,7 @@ class GameRound
     else
       puts "I won!"
     end
-    puts "Thanks for playing #{@player.name}"
+#    puts "Thanks for playing #{@player.name}"
     puts ""
     start
   end
