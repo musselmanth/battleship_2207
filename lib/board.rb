@@ -19,31 +19,31 @@ class Board
     end
     
     def valid_placement?(ship, coordinates)       
-        if all_coordinates_valid?(ship, coordinates)
-            if all_same_row?(coordinates) && consecutive_columns?(coordinates) 
-                true
-            elsif all_same_column?(coordinates) && consecutive_rows?(coordinates)
-                true
-            else
-                false
-            end
-        else
-            false
-        end
+        all_coordinates_valid?(ship, coordinates) && (empty_and_in_a_row?(coordinates) || empty_and_in_a_column?(coordinates))
+    end
+
+    def all_coordinates_empty?(coordinates)
+        coordinates.all?{ |coordinate| @cells[coordinate].empty? }
     end
   
     def all_coordinates_valid?(ship, coordinates)
-        coordinates_exist = coordinates.all? do |coordinate|
-            valid_coordinate?(coordinate) 
-        end
+        coordinates_exist = coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
+        correct_coordinate_length = (ship.length == coordinates.length())
+        coordinates_exist && correct_coordinate_length
+    end
 
-        coordinates_empty = coordinates.all? do |coordinate|
-            @cells[coordinate].empty?
-        end
+    def empty_and_in_a_row?(coordinates)
+        is_empty = all_coordinates_empty?(coordinates)
+        is_all_same_row = all_same_row?(coordinates)
+        has_consecutive_columns = consecutive_columns?(coordinates)
+        is_empty && is_all_same_row && has_consecutive_columns
+    end
 
-        correct_coordinate_length = ship.length == coordinates.length
-
-        coordinates_exist && coordinates_empty && correct_coordinate_length
+    def empty_and_in_a_column?(coordinates)
+        is_empty = all_coordinates_empty?(coordinates)
+        is_all_same_column = all_same_column?(coordinates)
+        has_consecutive_rows = consecutive_rows?(coordinates)
+        is_empty && is_all_same_column && has_consecutive_rows
     end
 
     def all_same_row?(coordinates)
@@ -58,24 +58,16 @@ class Board
 
     def consecutive_columns?(coordinates)
         columns = coordinates.map{ |coordinate| coordinate.split(//).last}
-
-        ("1".."4").each_cons(coordinates.length).any? do |expected|
-            columns == expected
-        end
+        ("1".."4").each_cons(coordinates.length).any?{ |expected| columns == expected }
     end
 
     def consecutive_rows?(coordinates)
         rows = coordinates.map{ |coordinate| coordinate.split(//).first }
-
-        ("A".."D").each_cons(coordinates.length).any? do |expected|
-            rows == expected
-        end
+        ("A".."D").each_cons(coordinates.length).any?{ |expected| rows == expected }
     end
 
     def place(ship, coordinates)
-        coordinates.each do |coordinate|
-            @cells[coordinate].place_ship(ship)
-        end
+        coordinates.each{ |coordinate| @cells[coordinate].place_ship(ship) }
     end
 
     def render(render_hidden_ship = false)

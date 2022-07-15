@@ -28,24 +28,24 @@ class GameRound
     end
     puts "Hi #{name}!, I'm Computer."
 
-    # @computer = Computer.new
-    # @player = Player.new(name, @computer)
-    # @computer.player = @player
+    @computer = Computer.new
+    @player = Player.new(name, @computer)
+    @computer.player = @player
 
     place_ships
   end
 
   def place_ships
-    # computer.place_ships
-    # player.place_ships
+    computer.place_ships
+    player.place_ships
     take_turn
   end
 
   def take_turn
     puts "================COMPUTER BOARD================"
-    # @computer.board.render
+    @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
     puts "=================PLAYER BOARD=================" #refactor to include @player.name?
-    # @player.board.render(true)
+    @player.board.render(true)
     # @player.fire
     # @computer.fire
     if game_round_over?
