@@ -83,6 +83,7 @@ RSpec.describe Board do
     it 'renders the board' do
         board = Board.new
         cruiser = Ship.new("Cruiser", 3)
+
         board.place(cruiser, ["A3", "B3", "C3"])    
         expected_output =   "  1 2 3 4 \n" +
                             "A . . . . \n" +
@@ -91,13 +92,15 @@ RSpec.describe Board do
                             "D . . . . \n"
 
         expected_output_render_ship =   "  1 2 3 4 \n" +
-                                        "A S S S . \n" +
-                                        "B . . . . \n" +
-                                        "C . . . . \n" +
+
+                                        "A . . S . \n" +
+                                        "B . . S . \n" +
+                                        "C . . S . \n" +
                                         "D . . . . \n"
         
         expect(board.render).to eq(expected_output)
-        require 'pry'; binding.pry
+        
+
         expect(board.render(true)).to eq(expected_output_render_ship)
     end
 end
