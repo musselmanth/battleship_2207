@@ -30,4 +30,14 @@ RSpec.describe Computer do
 
     expect(first_comp_init_render).not_to eq(second_comp_init_render)
   end
+  it 'can tell you when its lost' do
+    @computer.place_ships
+    @computer.ships.each do |ship|
+      until ship.sunk?
+        ship.hit
+      end
+    end
+
+    expect(@computer.all_ships_sunk?).to be true
+  end
 end
