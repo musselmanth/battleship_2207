@@ -1,4 +1,5 @@
 require './lib/computer'
+require './lib/player'
 
 RSpec.describe Computer do
   before(:each) do
@@ -39,5 +40,12 @@ RSpec.describe Computer do
     end
 
     expect(@computer.all_ships_sunk?).to be true
+  end
+  it 'can fire at the players board' do
+    player = Player.new("Tom", @computer)
+    @computer.fire
+    @computer.fire
+    count = player.board.cells.count{|key, cell| cell.fired_upon? }
+    expect(count).to eq(2)
   end
 end
