@@ -3,7 +3,7 @@ require './lib/ship'
 
 class Player
 
-    attr_reader :board
+    attr_reader :board, :name
 
     def initialize(name, computer)
         @name = name
@@ -22,7 +22,7 @@ class Player
 
     def place_ships
         @ships.each do |key, ship|
-            puts "Select your placement for your #{ship.name} (3 cells)"    
+            puts "Select your placement for your #{ship.name} (#{ship.length} cells)    
             print "Selection: "
             selection = gets.chomp.upcase
             coordinates = selection.split(/ /)
@@ -55,21 +55,21 @@ class Player
         # @board.place(@ships[:submarine], coordinates)
     end
 
-    # def fire
-        # @player = Player.new(name, @computer)
-        # @computer = Computer.new
-        # puts "Select a cell to fire upon"
-        # puts "Selection: "
-        # selection = gets.chomp
-        # # @computer.board.cells[coordinate].fire_upon
-        # if @computer.board.cells[coordinate].fire_upon == fired_upon?
-        #     puts "That cell has already been selected. Please select again."
-        #     puts "Selection: "
-        #     selection = gets.chomp
-        # if @computer.board.cells[coordinate].fire_upon == @computer.board.place
-        #     puts "Your shot on #{coordinate} was a hit!"
-        # else 
-            # puts "Your shot on #{coordinate} was a miss."
-    # end
+    def fire
+        @player = Player.new(name, @computer)
+        @computer = Computer.new
+        puts "Select a cell to fire upon"
+        puts "Selection: "
+        selection = gets.chomp
+        # @computer.board.cells[coordinate].fire_upon
+        if @computer.board.cells[coordinate].fire_upon == fired_upon?
+            puts "That cell has already been selected. Please select again."
+            puts "Selection: "
+            selection = gets.chomp
+        if @computer.board.cells[coordinate].fire_upon == @computer.board.place
+            puts "Your shot on #{coordinate} was a hit!"
+        else 
+            puts "Your shot on #{coordinate} was a miss."
+    end
 
 end
