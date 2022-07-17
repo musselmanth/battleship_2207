@@ -69,6 +69,31 @@ class Board
     def place(ship, coordinates)
         coordinates.each{ |coordinate| @cells[coordinate].place_ship(ship) }
     end
+    
+    def adjacent_cells(coordinate) #=>returns hash of adjacent cells objects at a given coordinate.
+        coordinate_split = coordinate.split(//)
+        row = coordinate_split.first.ord
+        column = coordinate_split.last.to_i
+        adj_cells = {
+            left: nil,
+            up: nil,
+            right: nil,
+            down: nil
+        }
+        left_coord = row.chr + (column - 1).to_s
+        adj_cells[:left] = @cells[left_coord] if valid_coordinate?(left_coord)
+
+        up_coord = (row - 1).chr + column.to_s
+        adj_cells[:up] = @cells[up_coord] if valid_coordinate?(up_coord)
+
+        right_coord = row.chr + (column + 1).to_s
+        adj_cells[:right] = @cells[right_coord] if valid_coordinate?(right_coord)
+
+        down_coord = (row + 1).chr + column.to_s
+        adj_cells[:down] = @cells[down_coord] if valid_coordinate?(down_coord)
+
+        adj_cells
+    end
 
     def render(render_hidden_ship = false)
         render_string = "  1 2 3 4 \n"
