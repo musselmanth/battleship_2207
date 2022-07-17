@@ -45,8 +45,8 @@ class Computer
     non_fired_cells = @player.board.cells.find_all{ |key, cell| !cell.fired_upon? }.to_a
     random_cell = non_fired_cells.sample.first
     result = @player.board.cells[random_cell].fire_upon
-    puts "My shot on #{random_cell} was a #{result ? "hit" : "miss"}."
-    puts ""
+    puts "My shot on #{random_cell} was a #{result}."
+    puts 
 
   end
 

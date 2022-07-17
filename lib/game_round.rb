@@ -47,17 +47,9 @@ class GameRound
 
   def take_turn
     puts "===============COMPUTER'S BOARD==============="
-    puts @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
+    puts @computer.board.render #=> rendering ships now for testing, final product should remove (true)
     puts players_board_header
     puts @player.board.render(true)
-    puts ""
-
-    #temporary block of code to allow for continuous looping of turns until game_over method is implemented
-    print "want to quit? type 'exit', otherwise enter to continue to next turn: "
-    want_to_exit = gets.chomp
-    if want_to_exit == "exit"
-      exit
-    end
     puts ""
 
     @player.fire
@@ -79,8 +71,7 @@ class GameRound
   end
 
   def game_round_over?
-    false #for now looping indefinitely in the take_turn method until user types "exit" when prompted after the boards are rendered
-    # @computer.all_ships_sunk? || @player.all_ships_sunk?
+    @computer.all_ships_sunk? || @player.all_ships_sunk?
   end
 
   def game_over
