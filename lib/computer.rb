@@ -41,4 +41,17 @@ class Computer
     end
   end
 
+  def fire
+    non_fired_cells = @player.board.cells.find_all{ |key, cell| !cell.fired_upon? }.to_a
+    random_cell = non_fired_cells.sample.first
+    result = @player.board.cells[random_cell].fire_upon
+    puts "My shot on #{random_cell} was a #{result ? "hit" : "miss"}."
+    puts ""
+
+  end
+
+  def all_ships_sunk?
+    @ships.all?{ |ship| ship.sunk? }
+  end
+
 end
