@@ -1,4 +1,5 @@
 require './lib/computer'
+require './lib/player'
 
 RSpec.describe Computer do
   before(:each) do
@@ -29,5 +30,23 @@ RSpec.describe Computer do
     second_comp_init_render = computer2.board.render(true)
 
     expect(first_comp_init_render).not_to eq(second_comp_init_render)
+  end
+  it 'can tell you when its lost' do
+    @computer.place_ships
+    @computer.ships.each do |ship|
+      until ship.sunk?
+        ship.hit
+      end
+    end
+
+    expect(@computer.all_ships_sunk?).to be true
+  end
+  it 'can fire at the players board' do
+    player = Player.new("Tom", @computer)
+    @computer.player = player
+    @computer.fire
+    @computer.fire
+    count = player.board.cells.count{|key, cell| cell.fired_upon? }
+    expect(count).to eq(2)
   end
 end
