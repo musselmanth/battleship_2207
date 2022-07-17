@@ -43,6 +43,7 @@ RSpec.describe Computer do
   end
   it 'can fire at the players board' do
     player = Player.new("Tom", @computer)
+    @computer.player = player
     @computer.fire
     @computer.fire
     count = player.board.cells.count{|key, cell| cell.fired_upon? }
