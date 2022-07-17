@@ -18,21 +18,23 @@ class GameRound
     until (selection == 'p' || selection == 'q')
       puts "Your selection is not valid. Please enter either 'p' to play or 'q' to quit."
       print "Selection: "
-      selection = gets.chomp
+      selection = gets.chomp.downcase
     end
 
     exit if selection == 'q'
 
     name = ''
-    while name == ''
-      print "Please enter your name: "
+    while name == '' || name.length > 36
+      print "Please enter your first name: "
       name = gets.chomp
+      puts "Your name is too long." if name.length > 36
     end
-    puts "Hi #{name}!, I'm Computer."
-
+    
     @computer = Computer.new
-    @player = Player.new(name, @computer)
+    @player = Player.new(name.capitalize, @computer)
     @computer.player = @player
+
+    puts "Hi #{@player.name}!, I'm Computer. Let's play Battleship!"
 
     place_ships
   end
@@ -44,12 +46,22 @@ class GameRound
   end
 
   def take_turn
-    puts "================COMPUTER BOARD================"
+    puts "===============COMPUTER'S BOARD==============="
     puts @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
-    puts "=================PLAYER BOARD=================" #refactor to include @player.name?
+    puts players_board_header
     puts @player.board.render(true)
-    # @player.fire
-    # @computer.fire
+    puts ""
+
+    #temporary block of code to allow for continuous looping of turns until game_over method is implemented
+    print "want to quit? type 'exit', otherwise enter to continue to next turn: "
+    want_to_exit = gets.chomp
+    if want_to_exit == "exit"
+      exit
+    end
+    puts ""
+
+    @player.fire
+    @computer.fire
     if game_round_over?
       game_over
     else
@@ -57,18 +69,32 @@ class GameRound
     end
   end
 
+  def players_board_header
+    header = ""
+    ((38 - @player.name.length) / 2).times{ header += "=" }
+    header += @player.name.upcase + "'S BOARD"
+    ((38 - @player.name.length) / 2).times{ header += "=" }
+    header += "=" if header.length < 46
+    header
+  end
+
   def game_round_over?
-    true #needs to return true if either all computer ships are sunk or player ships are sunk
+    false #for now looping indefinitely in the take_turn method until user types "exit" when prompted after the boards are rendered
     # @computer.all_ships_sunk? || @player.all_ships_sunk?
   end
 
   def game_over
-    if true #=> computer.all_ships_sunk?
+    puts "===============COMPUTER'S BOARD==============="
+    puts @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
+    puts players_board_header # puts "=============#{@player.name} BOARD============="
+    puts @player.board.render(true)
+    puts ""
+    if @computer.all_ships_sunk?
       puts "You won!"
     else
       puts "I won!"
     end
-#    puts "Thanks for playing #{@player.name}"
+    puts "Thanks for playing, #{@player.name}!"
     puts ""
     start
   end
