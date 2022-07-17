@@ -23,6 +23,7 @@ class Player
     def place_ships
         @ships.each do |ship|
             puts "Select your placement for your #{ship.name} (#{ship.length} cells)"    
+
             print "Selection: "
             selection = gets.chomp.upcase
             coordinates = selection.split(/ /)
