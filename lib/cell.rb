@@ -25,6 +25,7 @@ class Cell
             @ship.hit
         end
         @is_fired_upon = true
+        !empty? #=> method returns true if fire_upon resulted in a hit.
     end
 
     def render(render_hidden_ship = false)
