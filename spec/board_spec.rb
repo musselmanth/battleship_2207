@@ -92,7 +92,6 @@ RSpec.describe Board do
                             "D . . . . \n"
 
         expected_output_render_ship =   "  1 2 3 4 \n" +
-
                                         "A . . S . \n" +
                                         "B . . S . \n" +
                                         "C . . S . \n" +
@@ -100,8 +99,17 @@ RSpec.describe Board do
         
         expect(board.render).to eq(expected_output)
         
-
         expect(board.render(true)).to eq(expected_output_render_ship)
+    end
+
+    it 'can return a hash of adjacent cells' do
+        board = Board.new
+        coordinate = "A1"
+        require 'pry'; binding.pry
+        expect(board.adjacent_cells(coordinate)).to eq({left: nil, up: nil, right: board.cells["A2"], down: board.cells["B1"]})
+
+        coordinate = "B2"
+        expect(board.adjacent_cells(coordinate)).to eq({left: board.cells["B1"], up: board.cells["A2"], right: board.cells["B3"], down: board.cells["C2"]})
     end
 end
 
