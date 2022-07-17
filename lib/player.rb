@@ -3,73 +3,59 @@ require './lib/ship'
 
 class Player
 
-    attr_reader :board
+    attr_reader :board, :name
 
     def initialize(name, computer)
         @name = name
         @computer = computer
         @board = Board.new
-        @ships = {}
+        @ships = []
         generate_ships
     end
 
     def generate_ships
         cruiser = Ship.new("cruiser", 3)
-        @ships[cruiser.name.to_sym] = cruiser
+        @ships << cruiser
         submarine = Ship.new("submarine", 2)
-        @ships[submarine.name.to_sym] = submarine
+        @ships << submarine
     end
 
     def place_ships
-        @ships.each do |key, ship|
-            puts "Select your placement for your #{ship.name} (3 cells)"    
+        @ships.each do |ship|
+            puts "Select your placement for your #{ship.name} (#{ship.length} cells)"    
+
             print "Selection: "
             selection = gets.chomp.upcase
             coordinates = selection.split(/ /)
             coordinates.sort!
-            until @board.valid_placement?(@ships[key], coordinates)
+            until @board.valid_placement?(ship, coordinates)
                 puts "Invalid coordinates. Please enter your coordinates." 
                 print "Selection: "
                 selection = gets.chomp.upcase
                 coordinates = selection.split(/ /)
                 coordinates.sort! 
             end 
-            @board.place(@ships[key], coordinates)
+            @board.place(ship, coordinates)
         end
-
-        
-
-        
-        # puts "Select your placement for your submarine (2 cells)"
-        # print "Selection: "
-        # selection = gets.chomp.upcase
-        # coordinates = selection.split(/ /)
-        # coordinates.sort!
-        # until @board.valid_placement?(@ships[:submarine], coordinates)
-        #     puts "Invalid coordinates. Please enter your coordinates." 
-        #     print "Selection: "
-        #     selection = gets.chomp.upcase
-        #     coordinates = selection.split(/ /)
-        #     coordinates.sort! 
-        # end 
-        # @board.place(@ships[:submarine], coordinates)
     end
 
-    # def fire
-        # @player = Player.new(name, @computer)
-        # @computer = Computer.new
-        # puts "Select a cell to fire upon"
-        # puts "Selection: "
-        # selection = gets.chomp
-        # # @computer.board.cells[coordinate].fire_upon
-        # if @computer.board.cells[coordinate].fire_upon == fired_upon?
-        #     puts "That cell has already been selected. Please select again."
-        #     puts "Selection: "
-        #     selection = gets.chomp
-        # if @computer.board.cells[coordinate].fire_upon == @computer.board.place
-        #     puts "Your shot on #{coordinate} was a hit!"
-        # else 
-            # puts "Your shot on #{coordinate} was a miss."
-    # end
+    def fire
+        puts "Select a cell to fire upon"
+        print "Selection: "
+        selection = gets.chomp.upcase
+        # @computer.board.cells[coordinate].fire_upon
+        until @board.valid_coordinate?(selection) && !@computer.board.cells[selection].fired_upon?
+            
+            puts "That cell is invalid. Please select again."
+            print "Selection: "
+            selection = gets.chomp.upcase
+        end
+        result = @computer.board.cells[selection].fire_upon
+        puts "Your shot on #{selection} was a #{result}." 
+    end
+
+    def all_ships_sunk?
+        @ships.all?{ |ship| ship.sunk? }
+    end
 
 end
