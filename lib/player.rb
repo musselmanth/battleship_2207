@@ -51,6 +51,7 @@ class Player
             selection = gets.chomp.upcase
         end
         result = @computer.board.cells[selection].fire_upon
+        puts
         puts "Your shot on #{selection} was a #{result}." 
     end
 
