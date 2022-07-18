@@ -104,19 +104,24 @@ class Board
         @cells.select{ |coord, cell| !cell.fired_upon? }.keys
     end
 
-    def render(render_hidden_ship = false)
+    def render(is_player_board = false)
         render_string = "  "
-        (22-@dimension).times{render_string += " "}
+        (18-@dimension).times{render_string += " "}
         ("1"..@dimension.to_s).each do |column|
             render_string += "#{column} "
         end 
+        render_string += "   Key:" if is_player_board
         render_string += "\n"
         ("A"..(64 + @dimension).chr).each do |row|
-            (22-@dimension).times{render_string += " "}
+            (18-@dimension).times{render_string += " "}
             render_string += "#{row} "
             ("1"..@dimension.to_s).each do |column|
-                render_string += "#{@cells[row + column].render(render_hidden_ship)} "
+                render_string += "#{@cells[row + column].render(is_player_board)} "
             end
+            render_string += "   M: miss" if row == "A" && is_player_board
+            render_string += "   H: hit" if row == "B" && is_player_board
+            render_string += "   X: sunk ship" if row == "C" && is_player_board
+            render_string += "   S: afloat ship" if row == "D" && is_player_board
             render_string += "\n"
         end
         render_string  

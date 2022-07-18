@@ -88,8 +88,8 @@ class GameRound
 
   def game_over
     puts "===============COMPUTER'S BOARD==============="
-    puts @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
-    puts players_board_header # puts "=============#{@player.name} BOARD============="
+    puts @computer.board.render
+    puts players_board_header 
     puts @player.board.render(true)
     puts ""
     if @computer.all_ships_sunk?
