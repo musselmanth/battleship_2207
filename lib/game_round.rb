@@ -87,11 +87,15 @@ class GameRound
   end
 
   def game_over
+    puts
     puts "===============COMPUTER'S BOARD==============="
+    puts
     puts @computer.board.render
+    puts
     puts players_board_header 
+    puts
     puts @player.board.render(true)
-    puts ""
+    puts 
     if @computer.all_ships_sunk?
       puts "You won!"
     else
