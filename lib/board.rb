@@ -106,11 +106,13 @@ class Board
 
     def render(render_hidden_ship = false)
         render_string = "  "
+        (22-@dimension).times{render_string += " "}
         ("1"..@dimension.to_s).each do |column|
             render_string += "#{column} "
         end 
         render_string += "\n"
         ("A"..(64 + @dimension).chr).each do |row|
+            (22-@dimension).times{render_string += " "}
             render_string += "#{row} "
             ("1"..@dimension.to_s).each do |column|
                 render_string += "#{@cells[row + column].render(render_hidden_ship)} "

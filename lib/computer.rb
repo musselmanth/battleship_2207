@@ -27,7 +27,6 @@ class Computer
       coordinates = []
 
       until @board.valid_placement?(ship, coordinates)
-        # coordinates[0] = (65 + rand(4)).chr + (1 + rand(4)).to_s 
         coordinates[0] = @board.cells.select{ |coord, cell| cell.empty? }.values.sample.coordinate
         across = rand(2) == 1
         (ship.length - 1).times do |i|

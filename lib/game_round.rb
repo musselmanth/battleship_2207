@@ -54,11 +54,15 @@ class GameRound
   end
 
   def take_turn
+    puts
     puts "===============COMPUTER'S BOARD==============="
-    puts @computer.board.render #=> rendering ships now for testing, final product should remove (true)
+    puts
+    puts @computer.board.render
+    puts
     puts players_board_header
+    puts
     puts @player.board.render(true)
-    puts ""
+    puts 
 
     @player.fire
     @computer.fire
