@@ -99,6 +99,10 @@ class Board
         @cells.select{ |coord, cell| cell.render == 'H' }.values
     end
 
+    def adjac_not_fired_cells(coord)
+        adjacent_cells(coord).values.intersection(not_fired_upon_cells)
+    end
+
     def not_fired_upon_cells
         @cells.select{ |coord, cell| !cell.fired_upon? }.values
     end
