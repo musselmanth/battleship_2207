@@ -95,6 +95,14 @@ class Board
         adj_cells
     end
 
+    def hit_cells
+        @cells.select{ |coord, cell| cell.render == 'H' }.values
+    end
+
+    def fired_upon_cells
+        @cells.select{ |coord, cell| cell.fired_upon? }.values
+    end
+
     def render(render_hidden_ship = false)
         render_string = "  1 2 3 4 \n"
 
