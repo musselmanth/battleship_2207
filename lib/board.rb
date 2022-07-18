@@ -99,8 +99,8 @@ class Board
         @cells.select{ |coord, cell| cell.render == 'H' }.values
     end
 
-    def fired_upon_cells
-        @cells.select{ |coord, cell| cell.fired_upon? }.values
+    def not_fired_upon_cells
+        @cells.select{ |coord, cell| !cell.fired_upon? }.values
     end
 
     def render(render_hidden_ship = false)

@@ -120,13 +120,24 @@ RSpec.describe Board do
         expect(board.hit_cells).to eq([board.cells["A2"]])
     end
 
-    it 'can return an array of fired_upon cells' do
+    it 'can return an array of not_fired_upon cells' do
         board = Board.new
-        board.cells["A1"].fire_upon
+        board.cells["A2"].fire_upon
+        board.cells["A3"].fire_upon
         board.cells["A4"].fire_upon
+        board.cells["B1"].fire_upon
+        board.cells["B2"].fire_upon
+        board.cells["B3"].fire_upon
+        board.cells["B4"].fire_upon
+        board.cells["C1"].fire_upon
+        board.cells["C2"].fire_upon
         board.cells["C3"].fire_upon
+        board.cells["D1"].fire_upon
+        board.cells["D3"].fire_upon
+        board.cells["D4"].fire_upon
 
-        expect(board.fired_upon_cells).to eq([board.cells["A1"], board.cells["A4"], board.cells["C3"]])
+
+        expect(board.not_fired_upon_cells).to eq([board.cells["A1"], board.cells["C4"], board.cells["D2"]])
     end
 end
 
