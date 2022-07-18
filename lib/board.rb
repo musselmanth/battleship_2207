@@ -5,13 +5,14 @@ class Board
 
     attr_reader :cells
 
-    def initialize(owner)
+    def initialize(owner, dimension)
         @cells = {}
-        ("A".."D").each do |row|
-            ("1".."4").each do |column|
+        ("A"..(64 + dimension).chr).each do |row|
+            ("1"..(dimension).to_s).each do |column|
                 @cells[row + column] = Cell.new(row + column, owner)
             end
         end
+        @dimension = dimension
     end
 
     def valid_coordinate?(coordinate)
@@ -58,12 +59,12 @@ class Board
 
     def consecutive_columns?(coordinates)
         columns = coordinates.map{ |coordinate| coordinate.split(//).last}
-        ("1".."4").each_cons(coordinates.length).any?{ |expected| columns == expected }
+        ("1"..@dimension.to_s).each_cons(coordinates.length).any?{ |expected| columns == expected }
     end
 
     def consecutive_rows?(coordinates)
         rows = coordinates.map{ |coordinate| coordinate.split(//).first }
-        ("A".."D").each_cons(coordinates.length).any?{ |expected| rows == expected }
+        ("A"..(64 + @dimension).chr).each_cons(coordinates.length).any?{ |expected| rows == expected }
     end
 
     def place(ship, coordinates)
@@ -104,11 +105,14 @@ class Board
     end
 
     def render(render_hidden_ship = false)
-        render_string = "  1 2 3 4 \n"
-
-        ("A".."D").each do |row|
+        render_string = "  "
+        ("1"..@dimension.to_s).each do |column|
+            render_string += "#{column} "
+        end 
+        render_string += "\n"
+        ("A"..(64 + @dimension).chr).each do |row|
             render_string += "#{row} "
-            ("1".."4").each do |column|
+            ("1"..@dimension.to_s).each do |column|
                 render_string += "#{@cells[row + column].render(render_hidden_ship)} "
             end
             render_string += "\n"

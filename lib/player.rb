@@ -5,10 +5,10 @@ class Player
 
     attr_reader :board, :name
 
-    def initialize(name, computer)
+    def initialize(name, computer, board_size)
         @name = name
         @computer = computer
-        @board = Board.new(:player)
+        @board = Board.new(:player, board_size)
         @ships = []
         generate_ships
     end
