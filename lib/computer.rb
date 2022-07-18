@@ -51,7 +51,6 @@ class Computer
     end
     ## picks the coordinate for the first highest value in the heatmap hash
     fire_coord = heatmap.max_by{ |coord, value| value }.first
-    p heatmap
     result = @player.board.cells[fire_coord].fire_upon
     puts "My shot on #{fire_coord} was a #{result}."
     puts 
