@@ -42,10 +42,21 @@ class Computer
   end
 
   def fire
-    non_fired_cells = @player.board.cells.find_all{ |key, cell| !cell.fired_upon? }.to_a
-    random_cell = non_fired_cells.sample.first
-    result = @player.board.cells[random_cell].fire_upon
-    puts "My shot on #{random_cell} was a #{result}."
+    ##random cell if no cells are hit
+    fire_coord = nil
+    if @player.board.hit_cells.length == 0
+      fire_coord = @player.board.not_fired_upon_cells.sample.coordinate
+    else
+      @player.board.hit_cells.each do |cell|
+        if @player.board.adjac_not_fired_cells(cell.coordinate).length != 0
+          fire_coord = @player.board.adjac_not_fired_cells(cell.coordinate).first.coordinate
+          break
+        end
+      end
+    end
+    
+    result = @player.board.cells[fire_coord].fire_upon
+    puts "My shot on #{fire_coord} was a #{result}."
     puts 
 
   end
