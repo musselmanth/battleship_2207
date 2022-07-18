@@ -96,15 +96,11 @@ class Board
     end
 
     def hit_cells
-        @cells.select{ |coord, cell| cell.render == 'H' }.values
+        @cells.select{ |coord, cell| cell.render == 'H' }
     end
 
-    def adjac_not_fired_cells(coord)
-        adjacent_cells(coord).values.intersection(not_fired_upon_cells)
-    end
-
-    def not_fired_upon_cells
-        @cells.select{ |coord, cell| !cell.fired_upon? }.values
+    def not_fired_upon_cell_coords
+        @cells.select{ |coord, cell| !cell.fired_upon? }.keys
     end
 
     def render(render_hidden_ship = false)
