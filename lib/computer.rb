@@ -6,12 +6,13 @@ class Computer
   attr_writer :player
   attr_reader :board, :ships
 
-  def initialize()
+  def initialize(board_size)
     @player = nil
-    @board = Board.new(:computer)
+    @board = Board.new(:computer, board_size)
     @ships = []
     @zero_or_one = rand(2)
     generate_ships
+    
   end
 
   def generate_ships

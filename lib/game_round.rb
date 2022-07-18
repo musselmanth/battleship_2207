@@ -23,6 +23,14 @@ class GameRound
 
     exit if selection == 'q'
 
+    puts "Please select the dimensions of the board (choose a number between 4 and 9)."
+    print "Selection: "
+    dimension = gets.chomp
+    until /\b[4-9]\b/.match?(dimension)
+      puts "Your dimensions are invalid. Please select again."
+      dimension = gets.chomp
+    end
+    dimension = dimension.to_i
     name = ''
     while name == '' || name.length > 36
       print "Please enter your first name: "
@@ -30,8 +38,8 @@ class GameRound
       puts "Your name is too long." if name.length > 36
     end
     
-    @computer = Computer.new
-    @player = Player.new(name.capitalize, @computer)
+    @computer = Computer.new(dimension)
+    @player = Player.new(name.capitalize, @computer, dimension)
     @computer.player = @player
 
     puts "Hi #{@player.name}!, I'm Computer. Let's play Battleship!"
