@@ -2,10 +2,11 @@ class Cell
 
     attr_reader :ship, :coordinate
 
-    def initialize(coordinate)
+    def initialize(coordinate, owner)
         @coordinate = coordinate
         @ship = nil
         @is_fired_upon = false
+        @owner = owner
     end
 
     def empty?
@@ -25,8 +26,9 @@ class Cell
             @ship.hit
         end
         @is_fired_upon = true
+        #return value:
         if !empty? && @ship.sunk?
-            "hit and sunk #{@ship.name}"
+            "hit and sunk #{@owner == :computer ? "my" : "your"} #{@ship.name}"
         elsif !empty? 
             "hit"
         else

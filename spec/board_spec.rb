@@ -92,7 +92,6 @@ RSpec.describe Board do
                             "D . . . . \n"
 
         expected_output_render_ship =   "  1 2 3 4 \n" +
-
                                         "A . . S . \n" +
                                         "B . . S . \n" +
                                         "C . . S . \n" +
@@ -100,8 +99,45 @@ RSpec.describe Board do
         
         expect(board.render).to eq(expected_output)
         
-
         expect(board.render(true)).to eq(expected_output_render_ship)
+    end
+
+    it 'can return a hash of adjacent cells' do
+        board = Board.new
+        coordinate = "A1"
+        expect(board.adjacent_cells(coordinate)).to eq({left: nil, up: nil, right: board.cells["A2"], down: board.cells["B1"]})
+
+        coordinate = "B2"
+        expect(board.adjacent_cells(coordinate)).to eq({left: board.cells["B1"], up: board.cells["A2"], right: board.cells["B3"], down: board.cells["C2"]})
+    end
+
+    it 'can return an array of hit cells' do
+        board = Board.new
+        cruiser = Ship.new("cruiser", 3)
+        board.place(cruiser, ["A1", "A2", "A3"])
+        board.cells["A2"].fire_upon
+        board.cells["C2"].fire_upon
+        expect(board.hit_cells).to eq([board.cells["A2"]])
+    end
+
+    it 'can return an array of not_fired_upon cells' do
+        board = Board.new
+        board.cells["A2"].fire_upon
+        board.cells["A3"].fire_upon
+        board.cells["A4"].fire_upon
+        board.cells["B1"].fire_upon
+        board.cells["B2"].fire_upon
+        board.cells["B3"].fire_upon
+        board.cells["B4"].fire_upon
+        board.cells["C1"].fire_upon
+        board.cells["C2"].fire_upon
+        board.cells["C3"].fire_upon
+        board.cells["D1"].fire_upon
+        board.cells["D3"].fire_upon
+        board.cells["D4"].fire_upon
+
+
+        expect(board.not_fired_upon_cells).to eq([board.cells["A1"], board.cells["C4"], board.cells["D2"]])
     end
 end
 
