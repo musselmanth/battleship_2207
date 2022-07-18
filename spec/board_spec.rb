@@ -105,11 +105,28 @@ RSpec.describe Board do
     it 'can return a hash of adjacent cells' do
         board = Board.new
         coordinate = "A1"
-        require 'pry'; binding.pry
         expect(board.adjacent_cells(coordinate)).to eq({left: nil, up: nil, right: board.cells["A2"], down: board.cells["B1"]})
 
         coordinate = "B2"
         expect(board.adjacent_cells(coordinate)).to eq({left: board.cells["B1"], up: board.cells["A2"], right: board.cells["B3"], down: board.cells["C2"]})
+    end
+
+    it 'can return an array of hit cells' do
+        board = Board.new
+        cruiser = Ship.new("cruiser", 3)
+        board.place(cruiser, ["A1", "A2", "A3"])
+        board.cells["A2"].fire_upon
+        board.cells["C2"].fire_upon
+        expect(board.hit_cells).to eq([board.cells["A2"]])
+    end
+
+    it 'can return an array of fired_upon cells' do
+        board = Board.new
+        board.cells["A1"].fire_upon
+        board.cells["A4"].fire_upon
+        board.cells["C3"].fire_upon
+
+        expect(board.fired_upon_cells).to eq([board.cells["A1"], board.cells["A4"], board.cells["C3"]])
     end
 end
 
