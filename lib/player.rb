@@ -8,7 +8,7 @@ class Player
     def initialize(name, computer)
         @name = name
         @computer = computer
-        @board = Board.new
+        @board = Board.new(:player)
         @ships = []
         generate_ships
     end

@@ -8,7 +8,7 @@ class Computer
 
   def initialize()
     @player = nil
-    @board = Board.new
+    @board = Board.new(:computer)
     @ships = []
     @zero_or_one = rand(2)
     generate_ships

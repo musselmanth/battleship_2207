@@ -5,11 +5,11 @@ class Board
 
     attr_reader :cells
 
-    def initialize
+    def initialize(owner)
         @cells = {}
         ("A".."D").each do |row|
             ("1".."4").each do |column|
-                @cells[row + column] = Cell.new(row + column)
+                @cells[row + column] = Cell.new(row + column, owner)
             end
         end
     end
