@@ -59,8 +59,8 @@ class Computer
   # if there is another hit cell in the same direction as a hit cell, 
   # that non-fired-upon cell gets even higher preference
   #   1 2 3 4
-  # A . . . .  in this scenario, B1 and B4 have a preference of 3 or 4 (random)
-  # B . H H .  while A2, A3, C2, and C3 have a preference of only 1 or 2 (random)
+  # A . . . .  in this scenario, B1 and B4 have a preference of between 21 and 40 (random)
+  # B . H H .  while A2, A3, C2, and C3 have a preference of only between 1 and 20 (random)
   # C . . . .  random numbers of 3/4 or 1/2 are used to simulate randomness in the cell chosen
   # D . . . .  amongst preferences
   def heatmap_with_hits
@@ -71,9 +71,9 @@ class Computer
     heatmap.each do |coord, value|
       @player.board.adjacent_cells(coord).each do |direction, cell|
         if cell != nil && cell.render == 'H'
-          heatmap[coord] = (1 + rand(2))
+          heatmap[coord] = (1 + rand(20))
           if @player.board.adjacent_cells(cell.coordinate)[direction] != nil && @player.board.adjacent_cells(cell.coordinate)[direction].render == 'H'
-            heatmap[coord] = (3 + rand(2))
+            heatmap[coord] = (21 + rand(40))
           end
         end
       end
@@ -82,12 +82,11 @@ class Computer
   end
 
   # heatmap_random
-  # returns a heatmap of cells which have not been fired upon. to avoid
-  # firing on adjacent cells it gives preferences to every other cell
-  # preferred cells get a random number 6 - 10 and non-preferred cells
-  # get a random number 1 - 5. random numbers are used to create randomness
-  # in which preferred cell is shot at.
-  # each game randomly chooses between the follow preferences based on 
+  # returns a heatmap of cells which have not been fired upon. to avoidc
+  # firing on adjacent cells it only gives values to cells in a lattice
+  # assigns a random number between 1 and 100 to allow for randomly selecting
+  # when heatmap.max_by is called
+  # each game randomly chooses between the follow lattices based on 
   # the @zero_or_one variable
   #      1 2 3 4        1 2 3 4
   #    A . P . P      A P . P . 
@@ -101,15 +100,11 @@ class Computer
       column = coord.split(//).last
       if (row.ord + @zero_or_one).even?
         if column.to_i.odd?
-          heatmap[coord] = (6 + rand(5))
-        else
-          heatmap[coord] = (1 + rand(5))
+          heatmap[coord] = (1 + rand(100))
         end
       else
         if column.to_i.even?
-          heatmap[coord] = (6 + rand(5))
-        else
-          heatmap[coord] = (1 + rand(5))
+          heatmap[coord] = (1 + rand(100))
         end
       end
     end
