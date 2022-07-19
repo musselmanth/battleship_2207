@@ -3,7 +3,7 @@ require './lib/ship'
 
 class Player
 
-    attr_reader :board, :name
+    attr_reader :board, :name, :ships
 
     def initialize(name, computer, board_size)
         @name = name
@@ -26,7 +26,7 @@ class Player
         end
         selection = selection.to_i
         selection.times do |time|
-            puts "Please select a name for ship number #{time}."
+            puts "Please select a name for ship number #{time + 1}."
             print "Selection: "
             ship_name = gets.chomp
             until ship_name.length < 15

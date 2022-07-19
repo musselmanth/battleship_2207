@@ -42,6 +42,7 @@ class GameRound
     @computer = Computer.new(dimension)
     @player = Player.new(name.capitalize, @computer, dimension)
     @computer.player = @player
+    @computer.generate_ships
 
     puts "Hi #{@player.name}!, I'm Computer. Let's play Battleship!"
 
