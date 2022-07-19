@@ -54,11 +54,15 @@ class GameRound
   end
 
   def take_turn
+    puts
     puts "===============COMPUTER'S BOARD==============="
-    puts @computer.board.render #=> rendering ships now for testing, final product should remove (true)
+    puts
+    puts @computer.board.render
+    puts
     puts players_board_header
+    puts
     puts @player.board.render(true)
-    puts ""
+    puts 
 
     @player.fire
     @computer.fire
@@ -83,11 +87,15 @@ class GameRound
   end
 
   def game_over
+    puts
     puts "===============COMPUTER'S BOARD==============="
-    puts @computer.board.render(true) #=> rendering ships now for testing, final product should remove (true)
-    puts players_board_header # puts "=============#{@player.name} BOARD============="
+    puts
+    puts @computer.board.render
+    puts
+    puts players_board_header 
+    puts
     puts @player.board.render(true)
-    puts ""
+    puts 
     if @computer.all_ships_sunk?
       puts "You won!"
     else
