@@ -28,6 +28,7 @@ class GameRound
     dimension = gets.chomp
     until /\b[4-9]\b/.match?(dimension)
       puts "Your dimensions are invalid. Please select again."
+      print "Selection: "
       dimension = gets.chomp
     end
     dimension = dimension.to_i
@@ -41,6 +42,7 @@ class GameRound
     @computer = Computer.new(dimension)
     @player = Player.new(name.capitalize, @computer, dimension)
     @computer.player = @player
+    @computer.generate_ships
 
     puts "Hi #{@player.name}!, I'm Computer. Let's play Battleship!"
 
@@ -59,7 +61,7 @@ class GameRound
     puts
     puts @computer.board.render
     puts
-    puts players_board_header
+    puts @player.board_header
     puts
     puts @player.board.render(true)
     puts 
@@ -73,15 +75,6 @@ class GameRound
     end
   end
 
-  def players_board_header
-    header = ""
-    ((38 - @player.name.length) / 2).times{ header += "=" }
-    header += @player.name.upcase + "'S BOARD"
-    ((38 - @player.name.length) / 2).times{ header += "=" }
-    header += "=" if header.length < 46
-    header
-  end
-
   def game_round_over?
     @computer.all_ships_sunk? || @player.all_ships_sunk?
   end
@@ -92,7 +85,7 @@ class GameRound
     puts
     puts @computer.board.render
     puts
-    puts players_board_header 
+    puts @player.board_header 
     puts
     puts @player.board.render(true)
     puts 

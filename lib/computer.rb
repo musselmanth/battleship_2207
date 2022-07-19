@@ -11,15 +11,13 @@ class Computer
     @board = Board.new(:computer, board_size)
     @ships = []
     @zero_or_one = rand(2)
-    generate_ships
     
   end
 
   def generate_ships
-    cruiser = Ship.new("cruiser", 3)
-    @ships << cruiser
-    submarine = Ship.new("submarine", 2)
-    @ships << submarine
+    @player.ships.each do |ship|
+      @ships << Ship.new(ship.name, ship.length)
+    end
   end
 
   def place_ships
