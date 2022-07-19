@@ -34,7 +34,7 @@ class GameRound
       puts "Your name is too long." if name.length > 36
     end
     puts
-    puts "Hi #{name}!, I'm Computer. Let's play Battleship!"
+    puts "Hi #{name.capitalize}!, I'm Computer. Let's play Battleship!"
     puts
     puts "Please select the dimensions of the board (choose a number between 4 and 9)."
     print "Selection: "
