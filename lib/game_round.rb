@@ -74,7 +74,7 @@ class GameRound
     puts
     puts @player.board_header
     puts
-    puts @player.board.render(true)
+    puts @player.board.render(true, true)
     puts 
 
     @player.fire
@@ -95,11 +95,11 @@ class GameRound
     puts
     puts "===============COMPUTER'S BOARD==============="
     puts
-    puts @computer.board.render
+    puts @computer.board.render(true)
     puts
     puts @player.board_header 
     puts
-    puts @player.board.render(true)
+    puts @player.board.render(true, true)
     puts 
     if @computer.all_ships_sunk?
       puts "You won!"

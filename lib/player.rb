@@ -55,7 +55,7 @@ class Player
             puts
             puts board_header
             puts
-            puts @board.render(true)
+            puts @board.render(true, true)
             puts
             puts "Select your placement for your #{ship.name} (#{ship.length} cells)"    
 
