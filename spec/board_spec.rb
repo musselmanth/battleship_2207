@@ -92,26 +92,26 @@ RSpec.describe Board do
         cruiser = Ship.new("Cruiser", 3)
 
         board.place(cruiser, ["A3", "B3", "C3"])    
-        expected_output =   "  1 2 3 4 5 \n" +
-                            "A . . . . . \n" +
-                            "B . . . . . \n" +
-                            "C . . . . . \n" +
-                            "D . . . . . \n" +
-                            "E . . . . . \n"
+        expected_output =   "               1 2 3 4 5 \n" +
+                            "             A . . . . . \n" +
+                            "             B . . . . . \n" +
+                            "             C . . . . . \n" +
+                            "             D . . . . . \n" +
+                            "             E . . . . . \n"
 
-        expected_output_render_ship =   "  1 2 3 4 5 \n" +
-                                        "A . . S . . \n" +
-                                        "B . . S . . \n" +
-                                        "C . . S . . \n" +
-                                        "D . . . . . \n" +
-                                        "E . . . . . \n"
+        expected_output_render_ship =   "               1 2 3 4 5 \n" +
+                                        "             A . . S . . \n" +
+                                        "             B . . S . . \n" +
+                                        "             C . . S . . \n" +
+                                        "             D . . . . . \n" +
+                                        "             E . . . . . \n"
         
         expect(board.render).to eq(expected_output)
         
         expect(board.render(true)).to eq(expected_output_render_ship)
     end
 
-    xit 'can return a hash of adjacent cells' do
+    it 'can return a hash of adjacent cells' do
         board = Board.new(:player, 8)
         coordinate = "A1"
         expect(board.adjacent_cells(coordinate)).to eq({left: nil, up: nil, right: board.cells["A2"], down: board.cells["B1"]})
@@ -120,17 +120,17 @@ RSpec.describe Board do
         expect(board.adjacent_cells(coordinate)).to eq({left: board.cells["B1"], up: board.cells["A2"], right: board.cells["B3"], down: board.cells["C2"]})
     end
 
-    xit 'can return an array of hit cells' do
+    it 'can return a hash of hit cells' do
         board = Board.new(:player, 8)
         cruiser = Ship.new("cruiser", 3)
         board.place(cruiser, ["A1", "A2", "A3"])
         board.cells["A2"].fire_upon
         board.cells["C2"].fire_upon
-        expect(board.hit_cells).to eq([board.cells["A2"]])
+        expect(board.hit_cells).to eq({"A2" => board.cells["A2"]})
     end
 
-    xit 'can return an array of not_fired_upon cells' do
-        board = Board.new(:player, 8)
+    it 'can return an array of not-fired-upon cell coorindates' do
+        board = Board.new(:player, 4)
         board.cells["A2"].fire_upon
         board.cells["A3"].fire_upon
         board.cells["A4"].fire_upon
@@ -145,8 +145,7 @@ RSpec.describe Board do
         board.cells["D3"].fire_upon
         board.cells["D4"].fire_upon
 
-
-        expect(board.not_fired_upon_cells).to eq([board.cells["A1"], board.cells["C4"], board.cells["D2"]])
+        expect(board.not_fired_upon_cell_coords).to eq(["A1", "C4", "D2"])
     end
 end
 
