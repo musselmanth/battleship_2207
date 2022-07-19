@@ -10,6 +10,9 @@ class GameRound
   end
 
   def start
+    system('clear')
+    puts "==================BATTLESHIP=================="
+    puts
     puts "Welcome to BATTLESHIP!"
 
     puts "Enter p to play. Enter q to quit."
@@ -23,6 +26,16 @@ class GameRound
 
     exit if selection == 'q'
 
+    puts
+    name = ''
+    while name == '' || name.length > 36
+      print "Please enter your first name: "
+      name = gets.chomp
+      puts "Your name is too long." if name.length > 36
+    end
+    puts
+    puts "Hi #{name}!, I'm Computer. Let's play Battleship!"
+    puts
     puts "Please select the dimensions of the board (choose a number between 4 and 9)."
     print "Selection: "
     dimension = gets.chomp
@@ -32,19 +45,15 @@ class GameRound
       dimension = gets.chomp
     end
     dimension = dimension.to_i
-    name = ''
-    while name == '' || name.length > 36
-      print "Please enter your first name: "
-      name = gets.chomp
-      puts "Your name is too long." if name.length > 36
-    end
-    
+
+
+    puts
     @computer = Computer.new(dimension)
     @player = Player.new(name.capitalize, @computer, dimension)
     @computer.player = @player
     @computer.generate_ships
 
-    puts "Hi #{@player.name}!, I'm Computer. Let's play Battleship!"
+
 
     place_ships
   end
@@ -52,11 +61,13 @@ class GameRound
   def place_ships
     @computer.place_ships
     @player.place_ships
+    system('clear')
+    puts "==================BATTLESHIP=================="
+    puts
     take_turn
   end
 
   def take_turn
-    puts
     puts "===============COMPUTER'S BOARD==============="
     puts
     puts @computer.board.render
@@ -67,6 +78,7 @@ class GameRound
     puts 
 
     @player.fire
+    #clearing in player fire
     @computer.fire
     if game_round_over?
       game_over
@@ -95,7 +107,9 @@ class GameRound
       puts "I won!"
     end
     puts "Thanks for playing, #{@player.name}!"
-    puts ""
+    puts 
+    puts "Press enter to continue"
+    gets.chomp
     start
   end
 
