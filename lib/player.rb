@@ -19,20 +19,21 @@ class Player
         puts "How many ships would you like to play with?"
         print "Selection: "
         selection = gets.chomp
-        until /\b[1-@board_size]\b/.match?(selection)
+        until /\b[1-#{@board_size}]\b/.match?(selection)
             puts "Your selection is invalid. Please select a number between 1 and #{@board_size}."
             print "Selection: "
-            dimension = gets.chomp
+            selection = gets.chomp
         end
         selection = selection.to_i
         selection.times do |time|
+            puts
             puts "Please select a name for ship number #{time + 1}."
             print "Selection: "
-            ship_name = gets.chomp
+            ship_name = gets.chomp.downcase
             until ship_name.length < 15
                 puts "Your name is too long. Please enter a different name."
                 print "Selection: "
-                ship_name = gets.chomp
+                ship_name = gets.chomp.downcase
             end
             puts "Please select your ship length (2 - 4 units)."
             print "Selection: "
@@ -49,6 +50,9 @@ class Player
 
     def place_ships
         @ships.each do |ship|
+            system('clear')
+            puts "==================BATTLESHIP=================="
+            puts
             puts board_header
             puts
             puts @board.render(true)
@@ -80,7 +84,7 @@ class Player
     end
 
     def fire
-        puts "Select a cell to fire upon"
+        puts "Select a cell to fire upon."
         print "Selection: "
         selection = gets.chomp.upcase
         # @computer.board.cells[coordinate].fire_upon
@@ -91,6 +95,8 @@ class Player
             selection = gets.chomp.upcase
         end
         result = @computer.board.cells[selection].fire_upon
+        system('clear')
+        puts "==================BATTLESHIP=================="
         puts
         puts "Your shot on #{selection} was a #{result}." 
     end
