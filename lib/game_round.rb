@@ -34,7 +34,7 @@ class GameRound
       puts "Your name is too long." if name.length > 36
     end
     puts
-    puts "Hi #{name}!, I'm Computer. Let's play Battleship!"
+    puts "Hi #{name.capitalize}!, I'm Computer. Let's play Battleship!"
     puts
     puts "Please select the dimensions of the board (choose a number between 4 and 9)."
     print "Selection: "
@@ -74,7 +74,7 @@ class GameRound
     puts
     puts @player.board_header
     puts
-    puts @player.board.render(true)
+    puts @player.board.render(true, true)
     puts 
 
     @player.fire
@@ -95,11 +95,11 @@ class GameRound
     puts
     puts "===============COMPUTER'S BOARD==============="
     puts
-    puts @computer.board.render
+    puts @computer.board.render(true)
     puts
     puts @player.board_header 
     puts
-    puts @player.board.render(true)
+    puts @player.board.render(true, true)
     puts 
     if @computer.all_ships_sunk?
       puts "You won!"

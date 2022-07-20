@@ -27,11 +27,11 @@ class Player
         selection = selection.to_i
         selection.times do |time|
             puts
-            puts "Please select a name for ship number #{time + 1}."
+            puts "Ship ##{time + 1}: What type of ship is it?"
             print "Selection: "
             ship_name = gets.chomp.downcase
-            until ship_name.length < 15
-                puts "Your name is too long. Please enter a different name."
+            until ship_name.length < 20
+                puts "Your ship type is too long. Please try again."
                 print "Selection: "
                 ship_name = gets.chomp.downcase
             end
@@ -55,19 +55,19 @@ class Player
             puts
             puts board_header
             puts
-            puts @board.render(true)
+            puts @board.render(true, true)
             puts
             puts "Select your placement for your #{ship.name} (#{ship.length} cells)"    
-
+            puts "Enter all coordinates separated by commas or spaces."
             print "Selection: "
             selection = gets.chomp.upcase
-            coordinates = selection.split(/ /)
+            coordinates = selection.split(/[, ]/)
             coordinates.sort!
             until @board.valid_placement?(ship, coordinates)
                 puts "Invalid coordinates. Please enter your coordinates." 
                 print "Selection: "
                 selection = gets.chomp.upcase
-                coordinates = selection.split(/ /)
+                coordinates = selection.split(/[, ]/)
                 coordinates.sort! 
             end 
             @board.place(ship, coordinates)

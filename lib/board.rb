@@ -104,24 +104,24 @@ class Board
         @cells.select{ |coord, cell| !cell.fired_upon? }.keys
     end
 
-    def render(is_player_board = false)
+    def render(render_ships = false, render_key = false)
         render_string = "  "
         (18-@dimension).times{render_string += " "}
         ("1"..@dimension.to_s).each do |column|
             render_string += "#{column} "
         end 
-        render_string += "   Key:" if is_player_board
+        render_string += "   Key:" if render_key
         render_string += "\n"
         ("A"..(64 + @dimension).chr).each do |row|
             (18-@dimension).times{render_string += " "}
             render_string += "#{row} "
             ("1"..@dimension.to_s).each do |column|
-                render_string += "#{@cells[row + column].render(is_player_board)} "
+                render_string += "#{@cells[row + column].render(render_ships)} "
             end
-            render_string += "   M: miss" if row == "A" && is_player_board
-            render_string += "   H: hit" if row == "B" && is_player_board
-            render_string += "   X: sunk ship" if row == "C" && is_player_board
-            render_string += "   S: afloat ship" if row == "D" && is_player_board
+            render_string += "   M: miss" if row == "A" && render_key
+            render_string += "   H: hit" if row == "B" && render_key
+            render_string += "   X: sunk ship" if row == "C" && render_key
+            render_string += "   S: afloat ship" if row == "D" && render_key
             render_string += "\n"
         end
         render_string  
