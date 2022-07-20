@@ -51,6 +51,7 @@ class Computer
     fire_coord = heatmap.max_by{ |coord, value| value }.first
     result = @player.board.cells[fire_coord].fire_upon
     puts "My shot on #{fire_coord} was a #{result}."
+    puts
   end
 
   # heatmap_with_hits
