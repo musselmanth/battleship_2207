@@ -4,7 +4,7 @@ require './lib/cell'
 RSpec.describe Cell do
 
     it 'exists and has initial attributes' do
-        cell = Cell.new("B4")
+        cell = Cell.new("B4", :player)
 
         expect(cell.coordinate).to eq("B4")
         expect(cell.ship).to eq(nil)
@@ -12,7 +12,7 @@ RSpec.describe Cell do
     end
 
     it 'can be placed' do
-        cell = Cell.new("B4")
+        cell = Cell.new("B4", :player)
         cruiser = Ship.new("Cruiser", 3)
         cell.place_ship(cruiser)
 
@@ -21,7 +21,7 @@ RSpec.describe Cell do
     end
 
     it 'can be fired upon' do
-        cell = Cell.new("B4")
+        cell = Cell.new("B4", :player)
         cruiser = Ship.new("Cruiser", 3)
 
         cell.place_ship(cruiser)
@@ -35,7 +35,7 @@ RSpec.describe Cell do
     end 
 
     it 'renders correctly with no ship' do
-        cell_1 = Cell.new("B4")
+        cell_1 = Cell.new("B4", :player)
 
         expect(cell_1.render).to eq(".")
 
@@ -45,7 +45,7 @@ RSpec.describe Cell do
     end
 
     it 'renders correctly with a ship' do
-        cell_2 = Cell.new("C3")
+        cell_2 = Cell.new("C3", :player)
         cruiser = Ship.new("Cruiser", 3)
         cell_2.place_ship(cruiser)
         
