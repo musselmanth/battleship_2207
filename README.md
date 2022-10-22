@@ -1,5 +1,7 @@
 # Battleship 2207
 
+![demo](/readme_images/demo.gif)
+
 ## About
 
 This is a fully functional Battleship game with a command-line user interface. It was written in Ruby using Object Oriented Programming principles. It includes a semi-intelligent computer opponent. It was a two-person paired project for the Turing School of Software and Design, with a timeline of 1.5 weeks.
