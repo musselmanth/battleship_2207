@@ -25,7 +25,11 @@ This project uses Ruby 2.7.2
 ## Notable Accomplishments
 
 - Used algorithms to develop a semi-intelligient computer that fires on cells adjancent to other hits, with strongest preferences given to cells with multiple adjacent hit cells in a row.
-  ![Computer AI exmaple](/readme_images/computer-behavior.gif)]
-  ![Heatmap Code Screenshot](/readme_images/heatmap.png)
+
+<img src="/readme_images/computer-behavior.gif" width="250px">
+
+<img src="/readme_images/heatmap.png" width="650px">
 
 ## Teammates
+
+[Rob Schlereth](https://github.com/rschlereth)
