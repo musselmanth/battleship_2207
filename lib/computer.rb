@@ -71,9 +71,9 @@ class Computer
     end
     heatmap.each do |coord, value|
       @player.board.adjacent_cells(coord).each do |direction, cell|
-        if cell != nil && cell.render == 'H'
+        if cell && cell.render == 'H'
           heatmap[coord] = (1 + rand(20))
-          if @player.board.adjacent_cells(cell.coordinate)[direction] != nil && @player.board.adjacent_cells(cell.coordinate)[direction].render == 'H'
+          if @player.board.adjacent_cells(cell.coordinate)[direction] && @player.board.adjacent_cells(cell.coordinate)[direction].render == 'H'
             heatmap[coord] = (21 + rand(40))
           end
         end
