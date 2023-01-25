@@ -41,12 +41,16 @@ class Cell
             "M"
         elsif fired_upon? && @ship.sunk?
             "X"
-        elsif fired_upon? 
+        elsif hit?
             "H"
         elsif render_hidden_ship && !empty?
             "S"
         else 
             "."
         end
+    end
+
+    def hit?
+        @is_fired_upon && !empty? && !@ship.sunk?
     end
 end

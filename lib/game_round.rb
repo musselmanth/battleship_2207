@@ -17,7 +17,7 @@ class GameRound
 
     puts "Enter p to play. Enter q to quit."
     print "Selection: "
-    selection = gets.chomp
+    selection = gets.chomp.downcase
     until (selection == 'p' || selection == 'q')
       puts "Your selection is not valid. Please enter either 'p' to play or 'q' to quit."
       print "Selection: "
