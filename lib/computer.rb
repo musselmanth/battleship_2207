@@ -62,8 +62,8 @@ class Computer
   #   1 2 3 4
   # A . . . .  in this scenario, B1 and B4 have a preference of between 21 and 40 (random)
   # B . H H .  while A2, A3, C2, and C3 have a preference of only between 1 and 20 (random)
-  # C . . . .  random numbers of 3/4 or 1/2 are used to simulate randomness in the cell chosen
-  # D . . . .  amongst preferences
+  # C . . . .  random numbers  are used to simulate randomness among the cells
+  # D . . . .  that have the same preference.
   def heatmap_with_hits
     heatmap = {}
     @player.board.not_fired_upon_cell_coords.each do |coord|
